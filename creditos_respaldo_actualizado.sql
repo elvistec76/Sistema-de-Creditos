@@ -1,9 +1,9 @@
 /*M!999999\- enable the sandbox mode */ 
--- MariaDB dump 10.20-13.0.2-MariaDB, for Linux (x86_64)
+-- MariaDB dump 10.20-11.8.9-MariaDB, for Win64 (AMD64)
 --
 -- Host: localhost    Database: creditos_db
 -- ------------------------------------------------------
--- Server version	13.0.2-MariaDB
+-- Server version	11.8.9-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -100,7 +100,7 @@ CREATE TABLE `aplicacion_pago` (
   KEY `id_cuota` (`id_cuota`),
   CONSTRAINT `aplicacion_pago_ibfk_1` FOREIGN KEY (`id_pago`) REFERENCES `pago` (`id_pago`),
   CONSTRAINT `aplicacion_pago_ibfk_2` FOREIGN KEY (`id_cuota`) REFERENCES `cuota` (`id_cuota`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,6 +110,9 @@ CREATE TABLE `aplicacion_pago` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `aplicacion_pago` WRITE;
 /*!40000 ALTER TABLE `aplicacion_pago` DISABLE KEYS */;
+INSERT INTO `aplicacion_pago` VALUES
+(1,1,13,541.67,1041.66),
+(2,2,14,530.38,1041.66);
 /*!40000 ALTER TABLE `aplicacion_pago` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -137,7 +140,7 @@ CREATE TABLE `auditoria` (
   KEY `idx_auditoria_fecha` (`fecha_hora`),
   KEY `idx_auditoria_entidad` (`entidad`,`id_entidad`),
   CONSTRAINT `auditoria_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,6 +150,26 @@ CREATE TABLE `auditoria` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `auditoria` WRITE;
 /*!40000 ALTER TABLE `auditoria` DISABLE KEYS */;
+INSERT INTO `auditoria` VALUES
+(1,6,'2026-10-19 21:42:31','DEVOLVER_A_ANALISIS','solicitud_credito',21,NULL,'evaluacion favorable','OK'),
+(2,27,'2026-10-19 22:20:31','REGISTRAR_SOLICITUD','solicitud_credito',22,NULL,'Solicitud del cliente 14182191','OK'),
+(3,2,'2026-10-19 22:24:50','ENVIAR_A_EVALUACION','solicitud_credito',22,NULL,'Producto 3; monto 250000.00; plazo 48 meses','OK'),
+(4,7,'2026-10-19 22:29:21','ACTUALIZAR_GARANTIA','garantia',11,'Valor: 0.00; verificacion: PENDIENTE','Solicitud: 22; tipo: 1; titular: elvis erik; valor: 700000; verificacion: VALIDADA; evidencia: revison del respaldo adjunto; archivo: garantias/be096dcf-d0a7-43d1-a79e-9a858c141529_solicutuAmbulancia.docx','CORRECTO'),
+(5,6,'2026-10-20 00:09:35','DECIDIR_SOLICITUD','solicitud_credito',22,NULL,'EN_EVALUACION -> RECHAZADA; motivo motivo de exceso','OK'),
+(6,6,'2026-10-20 00:10:03','DECIDIR_SOLICITUD','solicitud_credito',18,NULL,'EN_EVALUACION -> APROBADA; motivo aprobado','OK'),
+(7,7,'2026-10-20 00:13:54','REGISTRAR_DOCUMENTO','documento_solicitud',1,NULL,'Tipo: Carnet; archivo: solicitudes/8cc5dde8-8759-4f72-8dc0-8e876f51ad05_Patrones_Psicologicos__2_.docx','CORRECTO'),
+(8,7,'2026-10-20 00:14:05','VERIFICAR_DOCUMENTO','documento_solicitud',1,'PENDIENTE','VERIFICADO','CORRECTO'),
+(9,7,'2026-10-20 00:14:09','VALIDAR_DATOS_CLIENTE','solicitud_credito',18,NULL,'CI: 12345432; nombre: ramses segundo; trabajo: En mi casa; ingresos: 5000.00','CORRECTO'),
+(10,7,'2026-10-20 00:14:12','VALIDAR_DATOS_CLIENTE','solicitud_credito',18,NULL,'CI: 12345432; nombre: ramses segundo; trabajo: En mi casa; ingresos: 5000.00','CORRECTO'),
+(11,7,'2026-10-20 00:21:52','ACTUALIZAR_GARANTIA','garantia',8,'Valor: 0.00; verificacion: PENDIENTE','Solicitud: 19; tipo: 1; titular: ramses segundo; valor: 500000; verificacion: VALIDADA; evidencia: respaldo adjunto; archivo: garantias/91d9419e-8144-4218-8e58-649b4e2b0895_ROLTURNOSMARZOSANTIAGO.docx','CORRECTO'),
+(12,7,'2026-10-20 00:23:34','ACTUALIZAR_GARANTIA','garantia',7,'Valor: 0.00; verificacion: PENDIENTE','Solicitud: 18; tipo: 1; titular: ramses segundo; valor: 500000; verificacion: VALIDADA; evidencia: respaldo adjunto; archivo: garantias/1138fe02-f331-4704-972e-4ae614c6db91_adenda_de_Contrato.docx','CORRECTO'),
+(13,7,'2026-10-20 00:23:55','PREPARAR_CREDITO','credito',2,NULL,'Solicitud 18; 50000.00 Bs; tasa nominal anual 13.000%; 48 meses; GRADUAL; contrato CT-e9a62a43718649749cdf7763f0','OK'),
+(14,7,'2026-10-20 00:25:00','FORMALIZAR_CONTRATO','contrato',1,NULL,'Firma 2026-10-20; respaldo contratos/821e22c1-b7dd-4cc0-887b-f6f55e1e0255_CartaEntel.docx','OK'),
+(15,7,'2026-10-20 00:26:23','SOLICITAR_DESEMBOLSO','desembolso',2,NULL,'Credito 2; prevista 2026-10-20; destino 123412341234','OK'),
+(16,7,'2026-10-20 00:27:14','CONFIRMAR_DESEMBOLSO','desembolso',2,NULL,'Referencia Core-test-9901; cronograma 2; cuotas 48; fecha real 2026-10-20','OK'),
+(17,3,'2026-10-20 00:30:31','AVISO_CLIENTE','notificacion',1,NULL,'CONFIRMACION_PAGO: Pago recibido: Bs 1583.33 para la cuota 1. Comprobante: P-61043c7d88fc47da99254f16c9. Saldo restante de esa cuota: Bs 0.00.','CORRECTO'),
+(18,3,'2026-10-20 00:30:53','AVISO_CLIENTE','notificacion',2,NULL,'RECORDATORIO_CUOTA: Credito CR-a9dcfa41b5d8480d9432d33a4e, cuota 2: saldo pendiente Bs 1572.04. Vencimiento: 2026-12-20. Revise sus cuotas y consulte en caja para realizar el pago.','CORRECTO'),
+(19,3,'2026-10-20 00:40:01','AVISO_CLIENTE','notificacion',3,NULL,'CONFIRMACION_PAGO: Pago recibido: Bs 1572.04 para la cuota 2. Comprobante: P-665cc4ddaec84ec49787c98c87. Saldo restante de esa cuota: Bs 0.00.','CORRECTO');
 /*!40000 ALTER TABLE `auditoria` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -213,7 +236,7 @@ CREATE TABLE `cliente` (
   KEY `id_usuario_registro` (`id_usuario_registro`),
   KEY `idx_cliente_nombre` (`apellidos`,`nombres`),
   CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`id_usuario_registro`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,13 +247,13 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
 INSERT INTO `cliente` VALUES
-(1,'9000001','Maria','Quispe','70123456',NULL,'Zona Sur',NULL,6000.00,NULL,'2026-10-16',7),
-(2,'9000002','Jose','Mamani','71234567',NULL,'El Alto',NULL,2000.00,NULL,'2026-10-16',7),
-(3,'9000003','Lucia','Flores','72345678',NULL,'Sopocachi',NULL,5000.00,NULL,'2026-10-16',7),
-(4,'123456','Andrea','Herrera Fernandez','77715532',NULL,NULL,NULL,0.00,NULL,'2026-10-17',NULL),
-(5,'54321','Juanito','Perez','77227722',NULL,NULL,NULL,0.00,NULL,'2026-10-17',NULL),
-(6,'7777777','Juanito','Perez Mamani','8889898',NULL,NULL,NULL,0.00,NULL,'2026-10-17',NULL),
-(7,'12345678','Maria','Guebara Perdidas','78787878',NULL,NULL,NULL,0.00,NULL,'2026-10-17',NULL),
+(1,'9000001','Maria','Quispe','70123456',NULL,'Zona Sur','vendedor',6000.00,NULL,'2026-10-16',7),
+(2,'9000002','Jose','Mamani','71234567',NULL,'El Alto','se rasca',1000.00,NULL,'2026-10-16',7),
+(3,'9000003','Lucia','Flores','72345678',NULL,'Sopocachi','Comerciante',5000.00,NULL,'2026-10-16',7),
+(4,'123456','Andrea','Herrera Fernandez','77715532',NULL,NULL,'desarrolladora',2500.00,NULL,'2026-10-17',NULL),
+(5,'54321','Juanito','Perez','77227722',NULL,NULL,'CNS',6000.00,NULL,'2026-10-17',NULL),
+(6,'7777777','Juanito','Perez Mamani','8889898',NULL,NULL,'empresa pil',7000.00,NULL,'2026-10-17',NULL),
+(7,'12345678','Maria','Guebara Perdidas','78787878',NULL,NULL,'Axes',3000.00,NULL,'2026-10-17',NULL),
 (8,'87654321','Pablo','Pancho','0987654',NULL,NULL,'Empresa Pil',7000.00,NULL,'2026-10-18',NULL),
 (11,'1234560','Juanita','Perez','12345678',NULL,NULL,'delicia',7890.00,NULL,'2026-10-18',NULL),
 (12,'4521367','Carlos','Mamani Quispe','71234567',NULL,NULL,'Empresa Pil',4500.00,NULL,'2026-09-08',NULL),
@@ -241,7 +264,11 @@ INSERT INTO `cliente` VALUES
 (17,'9067345','Rosa','Apaza Huanca','76789012',NULL,NULL,'Comercio propio',2800.00,NULL,'2026-10-03',NULL),
 (18,'808080','Pancho','Villa','80808080',NULL,NULL,'Restaurante DOña pancha',2500.00,NULL,'2026-10-18',NULL),
 (19,'111111111','EJemplo','uno','12423432',NULL,NULL,'vendedor',2000.00,NULL,'2026-10-18',NULL),
-(21,'12345670','elvis','tec','76707322',NULL,NULL,'empresa pil',10000.00,NULL,'2026-10-19',NULL);
+(21,'12345670','elvis','tec','76707322',NULL,NULL,'empresa pil',10000.00,NULL,'2026-10-19',NULL),
+(22,'12345432','ramses','segundo','78093232',NULL,NULL,'En mi casa',5000.00,NULL,'2026-10-19',NULL),
+(23,'11223344','JOSEMA','NANDO','76784323',NULL,NULL,'trabajo remoto',4000.00,NULL,'2026-10-19',NULL),
+(24,'14182190','ellis','condori','76843432',NULL,NULL,'comerciante',50000.00,NULL,'2026-10-19',NULL),
+(25,'14182191','elvis','erik','76707322',NULL,NULL,'empresa de coca cola',10000.00,NULL,'2026-10-19',NULL);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -311,7 +338,7 @@ CREATE TABLE `contrato` (
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `contrato_ibfk_1` FOREIGN KEY (`id_credito`) REFERENCES `credito` (`id_credito`),
   CONSTRAINT `contrato_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,6 +348,8 @@ CREATE TABLE `contrato` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `contrato` WRITE;
 /*!40000 ALTER TABLE `contrato` DISABLE KEYS */;
+INSERT INTO `contrato` VALUES
+(1,2,7,'CT-e9a62a43718649749cdf7763f0',1,'MENSUAL-NOM-V1','2026-10-20 00:23:55','contratos/821e22c1-b7dd-4cc0-887b-f6f55e1e0255_CartaEntel.docx','2026-10-20 00:00:00','FORMALIZADO');
 /*!40000 ALTER TABLE `contrato` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -352,7 +381,7 @@ CREATE TABLE `credito` (
   KEY `idx_credito_estado` (`estado`),
   CONSTRAINT `credito_ibfk_1` FOREIGN KEY (`id_solicitud`) REFERENCES `solicitud_credito` (`id_solicitud`),
   CONSTRAINT `credito_ibfk_2` FOREIGN KEY (`id_politica`) REFERENCES `politica_crediticia` (`id_politica`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -363,7 +392,8 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `credito` WRITE;
 /*!40000 ALTER TABLE `credito` DISABLE KEYS */;
 INSERT INTO `credito` VALUES
-(1,1,1,'CR-TEST-0001',10000.00,18.000,12,'FIJA','2026-06-11 00:00:00',8454.90,'EN_MORA');
+(1,1,1,'CR-TEST-0001',10000.00,18.000,12,'FIJA','2026-06-11 00:00:00',8454.90,'EN_MORA'),
+(2,18,1,'CR-a9dcfa41b5d8480d9432d33a4e',50000.00,13.000,48,'GRADUAL','2026-10-20 00:10:03',47916.68,'VIGENTE');
 /*!40000 ALTER TABLE `credito` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -390,7 +420,7 @@ CREATE TABLE `cronograma_pago` (
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `cronograma_pago_ibfk_1` FOREIGN KEY (`id_credito`) REFERENCES `credito` (`id_credito`),
   CONSTRAINT `cronograma_pago_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -401,7 +431,8 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `cronograma_pago` WRITE;
 /*!40000 ALTER TABLE `cronograma_pago` DISABLE KEYS */;
 INSERT INTO `cronograma_pago` VALUES
-(1,1,6,1,'Cronograma original','2026-10-16 19:05:21','2026-06-11',1);
+(1,1,6,1,'Cronograma original','2026-10-16 19:05:21','2026-06-11',1),
+(2,2,7,1,'Plan mensual nominal: anual/12; sin cargos adicionales','2026-10-20 00:27:14','2026-10-20',1);
 /*!40000 ALTER TABLE `cronograma_pago` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -431,7 +462,7 @@ CREATE TABLE `cuota` (
   UNIQUE KEY `uq_cuota_numero` (`id_cronograma`,`numero`),
   KEY `idx_cuota_estado_venc` (`estado`,`fecha_vencimiento`),
   CONSTRAINT `cuota_ibfk_1` FOREIGN KEY (`id_cronograma`) REFERENCES `cronograma_pago` (`id_cronograma`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -453,7 +484,55 @@ INSERT INTO `cuota` VALUES
 (9,1,9,'2027-03-11',863.79,53.01,916.80,0.00,0.00,916.80,0,'PENDIENTE'),
 (10,1,10,'2027-04-11',876.75,40.05,916.80,0.00,0.00,916.80,0,'PENDIENTE'),
 (11,1,11,'2027-05-11',889.90,26.90,916.80,0.00,0.00,916.80,0,'PENDIENTE'),
-(12,1,12,'2027-06-11',903.26,13.55,916.81,0.00,0.00,916.81,0,'PENDIENTE');
+(12,1,12,'2027-06-11',903.26,13.55,916.81,0.00,0.00,916.81,0,'PENDIENTE'),
+(13,2,1,'2026-11-20',1041.66,541.67,1583.33,1041.66,541.67,0.00,0,'PAGADA'),
+(14,2,2,'2026-12-20',1041.66,530.38,1572.04,1041.66,530.38,0.00,0,'PAGADA'),
+(15,2,3,'2027-01-20',1041.66,519.10,1560.76,0.00,0.00,1560.76,0,'PENDIENTE'),
+(16,2,4,'2027-02-20',1041.66,507.81,1549.47,0.00,0.00,1549.47,0,'PENDIENTE'),
+(17,2,5,'2027-03-20',1041.66,496.53,1538.19,0.00,0.00,1538.19,0,'PENDIENTE'),
+(18,2,6,'2027-04-20',1041.66,485.24,1526.90,0.00,0.00,1526.90,0,'PENDIENTE'),
+(19,2,7,'2027-05-20',1041.66,473.96,1515.62,0.00,0.00,1515.62,0,'PENDIENTE'),
+(20,2,8,'2027-06-20',1041.66,462.67,1504.33,0.00,0.00,1504.33,0,'PENDIENTE'),
+(21,2,9,'2027-07-20',1041.66,451.39,1493.05,0.00,0.00,1493.05,0,'PENDIENTE'),
+(22,2,10,'2027-08-20',1041.66,440.10,1481.76,0.00,0.00,1481.76,0,'PENDIENTE'),
+(23,2,11,'2027-09-20',1041.66,428.82,1470.48,0.00,0.00,1470.48,0,'PENDIENTE'),
+(24,2,12,'2027-10-20',1041.66,417.54,1459.20,0.00,0.00,1459.20,0,'PENDIENTE'),
+(25,2,13,'2027-11-20',1041.66,406.25,1447.91,0.00,0.00,1447.91,0,'PENDIENTE'),
+(26,2,14,'2027-12-20',1041.66,394.97,1436.63,0.00,0.00,1436.63,0,'PENDIENTE'),
+(27,2,15,'2028-01-20',1041.66,383.68,1425.34,0.00,0.00,1425.34,0,'PENDIENTE'),
+(28,2,16,'2028-02-20',1041.66,372.40,1414.06,0.00,0.00,1414.06,0,'PENDIENTE'),
+(29,2,17,'2028-03-20',1041.66,361.11,1402.77,0.00,0.00,1402.77,0,'PENDIENTE'),
+(30,2,18,'2028-04-20',1041.66,349.83,1391.49,0.00,0.00,1391.49,0,'PENDIENTE'),
+(31,2,19,'2028-05-20',1041.66,338.54,1380.20,0.00,0.00,1380.20,0,'PENDIENTE'),
+(32,2,20,'2028-06-20',1041.66,327.26,1368.92,0.00,0.00,1368.92,0,'PENDIENTE'),
+(33,2,21,'2028-07-20',1041.66,315.97,1357.63,0.00,0.00,1357.63,0,'PENDIENTE'),
+(34,2,22,'2028-08-20',1041.66,304.69,1346.35,0.00,0.00,1346.35,0,'PENDIENTE'),
+(35,2,23,'2028-09-20',1041.66,293.40,1335.06,0.00,0.00,1335.06,0,'PENDIENTE'),
+(36,2,24,'2028-10-20',1041.66,282.12,1323.78,0.00,0.00,1323.78,0,'PENDIENTE'),
+(37,2,25,'2028-11-20',1041.66,270.84,1312.50,0.00,0.00,1312.50,0,'PENDIENTE'),
+(38,2,26,'2028-12-20',1041.66,259.55,1301.21,0.00,0.00,1301.21,0,'PENDIENTE'),
+(39,2,27,'2029-01-20',1041.66,248.27,1289.93,0.00,0.00,1289.93,0,'PENDIENTE'),
+(40,2,28,'2029-02-20',1041.66,236.98,1278.64,0.00,0.00,1278.64,0,'PENDIENTE'),
+(41,2,29,'2029-03-20',1041.66,225.70,1267.36,0.00,0.00,1267.36,0,'PENDIENTE'),
+(42,2,30,'2029-04-20',1041.66,214.41,1256.07,0.00,0.00,1256.07,0,'PENDIENTE'),
+(43,2,31,'2029-05-20',1041.66,203.13,1244.79,0.00,0.00,1244.79,0,'PENDIENTE'),
+(44,2,32,'2029-06-20',1041.66,191.84,1233.50,0.00,0.00,1233.50,0,'PENDIENTE'),
+(45,2,33,'2029-07-20',1041.66,180.56,1222.22,0.00,0.00,1222.22,0,'PENDIENTE'),
+(46,2,34,'2029-08-20',1041.66,169.27,1210.93,0.00,0.00,1210.93,0,'PENDIENTE'),
+(47,2,35,'2029-09-20',1041.66,157.99,1199.65,0.00,0.00,1199.65,0,'PENDIENTE'),
+(48,2,36,'2029-10-20',1041.66,146.70,1188.36,0.00,0.00,1188.36,0,'PENDIENTE'),
+(49,2,37,'2029-11-20',1041.66,135.42,1177.08,0.00,0.00,1177.08,0,'PENDIENTE'),
+(50,2,38,'2029-12-20',1041.66,124.13,1165.79,0.00,0.00,1165.79,0,'PENDIENTE'),
+(51,2,39,'2030-01-20',1041.66,112.85,1154.51,0.00,0.00,1154.51,0,'PENDIENTE'),
+(52,2,40,'2030-02-20',1041.66,101.57,1143.23,0.00,0.00,1143.23,0,'PENDIENTE'),
+(53,2,41,'2030-03-20',1041.66,90.28,1131.94,0.00,0.00,1131.94,0,'PENDIENTE'),
+(54,2,42,'2030-04-20',1041.66,79.00,1120.66,0.00,0.00,1120.66,0,'PENDIENTE'),
+(55,2,43,'2030-05-20',1041.66,67.71,1109.37,0.00,0.00,1109.37,0,'PENDIENTE'),
+(56,2,44,'2030-06-20',1041.66,56.43,1098.09,0.00,0.00,1098.09,0,'PENDIENTE'),
+(57,2,45,'2030-07-20',1041.66,45.14,1086.80,0.00,0.00,1086.80,0,'PENDIENTE'),
+(58,2,46,'2030-08-20',1041.66,33.86,1075.52,0.00,0.00,1075.52,0,'PENDIENTE'),
+(59,2,47,'2030-09-20',1041.66,22.57,1064.23,0.00,0.00,1064.23,0,'PENDIENTE'),
+(60,2,48,'2030-10-20',1041.98,11.29,1053.27,0.00,0.00,1053.27,0,'PENDIENTE');
 /*!40000 ALTER TABLE `cuota` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -485,7 +564,7 @@ CREATE TABLE `desembolso` (
   KEY `idx_desembolso_estado` (`estado`),
   CONSTRAINT `desembolso_ibfk_1` FOREIGN KEY (`id_credito`) REFERENCES `credito` (`id_credito`),
   CONSTRAINT `desembolso_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -496,7 +575,8 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `desembolso` WRITE;
 /*!40000 ALTER TABLE `desembolso` DISABLE KEYS */;
 INSERT INTO `desembolso` VALUES
-(1,1,7,'DESEMB-TEST-0001','2026-06-11','2026-06-11 00:00:00',10000.00,'1000234567','CORE-TEST-9001',NULL,'CONFIRMADO');
+(1,1,7,'DESEMB-TEST-0001','2026-06-11','2026-06-11 00:00:00',10000.00,'1000234567','CORE-TEST-9001',NULL,'CONFIRMADO'),
+(2,2,7,'dfa69214-85ed-4b69-a56f-f6e0dc12c16b','2026-10-20','2026-10-20 00:27:14',50000.00,'123412341234','Core-test-9901',NULL,'CONFIRMADO');
 /*!40000 ALTER TABLE `desembolso` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -518,7 +598,7 @@ CREATE TABLE `documento_garantia` (
   PRIMARY KEY (`id_documento`),
   KEY `id_garantia` (`id_garantia`),
   CONSTRAINT `documento_garantia_ibfk_1` FOREIGN KEY (`id_garantia`) REFERENCES `garantia` (`id_garantia`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -528,6 +608,10 @@ CREATE TABLE `documento_garantia` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `documento_garantia` WRITE;
 /*!40000 ALTER TABLE `documento_garantia` DISABLE KEYS */;
+INSERT INTO `documento_garantia` VALUES
+(2,11,'RESPALDO DE GARANTIA','garantias/be096dcf-d0a7-43d1-a79e-9a858c141529_solicutuAmbulancia.docx','2026-10-19 22:29:21'),
+(3,8,'RESPALDO DE GARANTIA','garantias/91d9419e-8144-4218-8e58-649b4e2b0895_ROLTURNOSMARZOSANTIAGO.docx','2026-10-20 00:21:52'),
+(4,7,'RESPALDO DE GARANTIA','garantias/1138fe02-f331-4704-972e-4ae614c6db91_adenda_de_Contrato.docx','2026-10-20 00:23:34');
 /*!40000 ALTER TABLE `documento_garantia` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -553,7 +637,7 @@ CREATE TABLE `documento_solicitud` (
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `documento_solicitud_ibfk_1` FOREIGN KEY (`id_solicitud`) REFERENCES `solicitud_credito` (`id_solicitud`),
   CONSTRAINT `documento_solicitud_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -563,6 +647,8 @@ CREATE TABLE `documento_solicitud` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `documento_solicitud` WRITE;
 /*!40000 ALTER TABLE `documento_solicitud` DISABLE KEYS */;
+INSERT INTO `documento_solicitud` VALUES
+(1,18,7,'Carnet','solicitudes/8cc5dde8-8759-4f72-8dc0-8e876f51ad05_Patrones_Psicologicos__2_.docx','VERIFICADO','2026-10-20 00:13:54');
 /*!40000 ALTER TABLE `documento_solicitud` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -683,7 +769,7 @@ CREATE TABLE `garantia` (
   CONSTRAINT `garantia_ibfk_2` FOREIGN KEY (`id_credito`) REFERENCES `credito` (`id_credito`),
   CONSTRAINT `garantia_ibfk_3` FOREIGN KEY (`id_tipo_garantia`) REFERENCES `tipo_garantia` (`id_tipo_garantia`),
   CONSTRAINT `garantia_ibfk_4` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -699,7 +785,12 @@ INSERT INTO `garantia` VALUES
 (3,6,NULL,2,17,'Garantia PRENDARIA declarada por el cliente','Juanita Perez',0.00,'PENDIENTE',NULL,'REGISTRADA'),
 (4,15,NULL,3,22,'Garantia PERSONAL declarada por el cliente','Pancho Villa',0.00,'PENDIENTE',NULL,'REGISTRADA'),
 (5,16,NULL,1,23,'Garantia HIPOTECARIA declarada por el cliente','elvis tec',0.00,'PENDIENTE',NULL,'REGISTRADA'),
-(6,17,NULL,3,23,'Garantia PERSONAL declarada por el cliente','elvis tec',0.00,'PENDIENTE',NULL,'REGISTRADA');
+(6,17,NULL,3,23,'Garantia PERSONAL declarada por el cliente','elvis tec',0.00,'PENDIENTE',NULL,'REGISTRADA'),
+(7,18,2,1,24,'Garantia HIPOTECARIA declarada por el cliente','ramses segundo',500000.00,'VALIDADA','respaldo adjunto','EN_CUSTODIA'),
+(8,19,NULL,1,24,'Garantia HIPOTECARIA declarada por el cliente','ramses segundo',500000.00,'VALIDADA','respaldo adjunto','REGISTRADA'),
+(9,20,NULL,1,26,'Garantia HIPOTECARIA declarada por el cliente','elvis erik',0.00,'PENDIENTE',NULL,'REGISTRADA'),
+(10,21,NULL,2,25,'Garantia PRENDARIA declarada por el cliente','JOSEMA NANDO',0.00,'PENDIENTE',NULL,'REGISTRADA'),
+(11,22,NULL,1,27,'Garantia HIPOTECARIA declarada por el cliente','elvis erik',700000.00,'VALIDADA','revison del respaldo adjunto','REGISTRADA');
 /*!40000 ALTER TABLE `garantia` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -837,7 +928,7 @@ CREATE TABLE `movimiento_financiero` (
   CONSTRAINT `movimiento_financiero_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `movimiento_financiero_ibfk_2` FOREIGN KEY (`id_pago`) REFERENCES `pago` (`id_pago`),
   CONSTRAINT `movimiento_financiero_ibfk_3` FOREIGN KEY (`id_desembolso`) REFERENCES `desembolso` (`id_desembolso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -847,6 +938,10 @@ CREATE TABLE `movimiento_financiero` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `movimiento_financiero` WRITE;
 /*!40000 ALTER TABLE `movimiento_financiero` DISABLE KEYS */;
+INSERT INTO `movimiento_financiero` VALUES
+(1,7,NULL,2,'2026-10-20 00:27:14','EGRESO','Desembolso confirmado manualmente',50000.00),
+(2,3,1,NULL,'2026-10-20 00:30:31','INGRESO','Pago cuota 1 - P-61043c7d88fc47da99254f16c9',1583.33),
+(3,3,2,NULL,'2026-10-20 00:40:01','INGRESO','Pago cuota 2 - P-665cc4ddaec84ec49787c98c87',1572.04);
 /*!40000 ALTER TABLE `movimiento_financiero` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -906,7 +1001,7 @@ CREATE TABLE `notificacion` (
   KEY `id_cliente` (`id_cliente`),
   CONSTRAINT `notificacion_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `notificacion_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -916,6 +1011,10 @@ CREATE TABLE `notificacion` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `notificacion` WRITE;
 /*!40000 ALTER TABLE `notificacion` DISABLE KEYS */;
+INSERT INTO `notificacion` VALUES
+(1,24,22,'CONFIRMACION_PAGO','Pago recibido: Bs 1583.33 para la cuota 1. Comprobante: P-61043c7d88fc47da99254f16c9. Saldo restante de esa cuota: Bs 0.00.','2026-10-20 00:30:31','ENVIADA'),
+(2,24,22,'RECORDATORIO_CUOTA','Credito CR-a9dcfa41b5d8480d9432d33a4e, cuota 2: saldo pendiente Bs 1572.04. Vencimiento: 2026-12-20. Revise sus cuotas y consulte en caja para realizar el pago.','2026-10-20 00:30:53','ENVIADA'),
+(3,24,22,'CONFIRMACION_PAGO','Pago recibido: Bs 1572.04 para la cuota 2. Comprobante: P-665cc4ddaec84ec49787c98c87. Saldo restante de esa cuota: Bs 0.00.','2026-10-20 00:40:01','PENDIENTE');
 /*!40000 ALTER TABLE `notificacion` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -946,7 +1045,7 @@ CREATE TABLE `pago` (
   KEY `idx_pago_fecha` (`fecha_pago`),
   CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`id_credito`) REFERENCES `credito` (`id_credito`),
   CONSTRAINT `pago_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -956,6 +1055,9 @@ CREATE TABLE `pago` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `pago` WRITE;
 /*!40000 ALTER TABLE `pago` DISABLE KEYS */;
+INSERT INTO `pago` VALUES
+(1,2,3,'2026-10-20 00:30:31',1583.33,'EFECTIVO','P-61043c7d88fc47da99254f16c9','P-61043c7d88fc47da99254f16c9','CONFIRMADO'),
+(2,2,3,'2026-10-20 00:40:01',1572.04,'TRANSFERENCIA','P-665cc4ddaec84ec49787c98c87','P-665cc4ddaec84ec49787c98c87','CONFIRMADO');
 /*!40000 ALTER TABLE `pago` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -1265,7 +1367,7 @@ CREATE TABLE `solicitud_credito` (
   CONSTRAINT `solicitud_credito_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto_credito` (`id_producto`),
   CONSTRAINT `solicitud_credito_ibfk_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `solicitud_credito_ibfk_4` FOREIGN KEY (`id_usuario_decision`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1292,7 +1394,12 @@ INSERT INTO `solicitud_credito` VALUES
 (14,14,1,7,'2026-09-28',40000.00,36,'Gastos personales','RECHAZADA',NULL,6,'2026-09-30 20:02:38','La cuota supera la capacidad de pago'),
 (15,18,1,22,'2026-10-18',4000.00,9,'necesita para comprarse una casa','APROBADA',NULL,15,'2026-10-18 20:18:11','garantia personal aceptable'),
 (16,21,4,23,'2026-10-19',15000.00,24,'vehiculo','RECHAZADA',NULL,15,'2026-10-19 10:51:23','exceso'),
-(17,21,NULL,23,'2026-10-19',NULL,NULL,'terreno','REGISTRADA',NULL,NULL,NULL,NULL);
+(17,21,3,23,'2026-10-19',200000.00,60,'terreno','EN_EVALUACION',NULL,NULL,NULL,NULL),
+(18,22,4,24,'2026-10-19',50000.00,48,'SACAR UN AUTO','APROBADA',NULL,6,'2026-10-20 00:10:03','aprobado'),
+(19,22,NULL,24,'2026-10-19',NULL,NULL,'comprar un terreno','REGISTRADA',NULL,NULL,NULL,NULL),
+(20,24,NULL,26,'2026-10-19',NULL,NULL,'sacar un vehiculo','REGISTRADA',NULL,NULL,NULL,NULL),
+(21,23,1,25,'2026-10-19',20000.00,36,'comprar vehiculo','OBSERVADA',NULL,6,'2026-10-19 21:42:31','evaluacion favorable'),
+(22,25,3,27,'2026-10-19',250000.00,48,'comprar un terreno','RECHAZADA',NULL,6,'2026-10-20 00:09:35','motivo de exceso');
 /*!40000 ALTER TABLE `solicitud_credito` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -1362,7 +1469,7 @@ CREATE TABLE `tipo_garantia` (
   `activo` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id_tipo_garantia`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1403,7 +1510,7 @@ CREATE TABLE `usuario` (
   KEY `id_rol` (`id_rol`),
   CONSTRAINT `fk_usuario_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1414,13 +1521,13 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` VALUES
-(1,1,NULL,'Administrador del Sistema','admin','',0.00,1),
-(2,3,NULL,'Analista de Prueba','analista','$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',0.00,1),
-(3,5,NULL,'Cajero de Prueba','cajero','PEGA_EL_HASH',0.00,1),
-(4,7,NULL,'Gerente de Prueba','gerente','PEGA_EL_HASH',0.00,1),
-(5,6,NULL,'Gestor de Cobranza de Prueba','gestor','$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',0.00,1),
-(6,4,NULL,'Jefe de Creditos de Prueba','jefe','$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',60000.00,1),
-(7,2,NULL,'Oficial de Prueba','oficial','$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',0.00,1),
+(1,1,NULL,'Administrador del Sistema','admin','$2a$10$GAvCLHvoyoalXm6tbH0ije1T8gXAdbK2bbxIJQC8eHAx9fxiE/4W6',0.00,1),
+(2,3,NULL,'Analista de Prueba','analista','$2a$10$0yfvh4AxeD/5mSmS9CykaOtEXG5TsA1M9svD/0Eolfqu1OUhj9j4S',0.00,1),
+(3,5,NULL,'Cajero de Prueba','cajero','$2a$10$SxWB5ZoKQnJ/5pRYfOBXxehWsarMxAlg4boEbrgXG6YxUucRSMKRG',0.00,1),
+(4,7,NULL,'Gerente de Prueba','gerente','$2a$10$PqsC6Bw5vcnY4wKNkdlkfeHjoHHkGW5aavq25Kvn8Mde3WsmUkXSe',0.00,1),
+(5,6,NULL,'Gestor de Cobranza de Prueba','gestor','$2a$10$2jNLiz1UYmS84j22Mpd7hu/zQj5GrPVy054rAzIfNtWII.Q8uN/wa',0.00,1),
+(6,4,NULL,'Jefe de Creditos de Prueba','jefe','$2a$10$EZlgg6A8UwdFlrlKM11OeuX3qMj2F2/CDWEsaejtQt9l7Ka11Ijyq',60000.00,1),
+(7,2,NULL,'Oficial de Prueba','oficial','$2a$10$1HKRBYu99Dpc.LVS9RVfyuuhU2gapJUQCilTNlSyCwojdT..Rs1De',0.00,1),
 (8,8,6,'Juanito Perez Mamani','7777777','$2a$10$4PANzSlBpA3xTYUyCDNFGOMH.Pbbgh8wIXRkrFw/wFtIoiJ82yXKm',0.00,1),
 (9,8,7,'Maria Guebara Perdidas','12345678','$2a$10$adYi53v1aO.znqoI7hLPHOy37speig/gAgG5yr7N8OlA9wL0G4GNa',0.00,1),
 (10,1,NULL,'Administrador Prueba','admin2','$2a$10$yE4YnWpBhPwbgrYQ/2DQReHZb/Jr7IbJWBsnOkyupCzqHrCDTT0d6',0.00,1),
@@ -1435,7 +1542,11 @@ INSERT INTO `usuario` VALUES
 (20,7,NULL,'G1 g','141414','$2a$10$9xBKrg/HYYKrEHKIIKmzguW8u9kSmaeSO1t7O1ExAnXvzgiY9LAF6',0.00,1),
 (21,6,NULL,'GC G','181818','$2a$10$Xg0Ldfx75bjuRaRyXK6km.1eankLPUauMEPe7p8l3FtP8tL0gNNVa',0.00,1),
 (22,8,18,'Pancho Villa','808080','$2a$10$.WrJmvxyqBk7kYO6uWn14Ol3pfYs6Sm2V4S750NXA6kQfVAzCIDwu',0.00,1),
-(23,8,21,'elvis tec','12345670','$2a$10$k6q5OXY4O7ch0eaEVsHGxu3WM5fmph545rA07kNLR/M60K9rzXsWK',0.00,1);
+(23,8,21,'elvis tec','12345670','$2a$10$k6q5OXY4O7ch0eaEVsHGxu3WM5fmph545rA07kNLR/M60K9rzXsWK',0.00,1),
+(24,8,22,'ramses segundo','12345432','$2a$10$aUpi.DsMNgTGdhzxI/YBuOD94buewB.26S52xR0JhcT34/h.a4/Cy',0.00,1),
+(25,8,23,'JOSEMA NANDO','11223344','$2a$10$SzX3BQY/o/YjuVAUnQZ91OPCI.z5LYqUMcSh/kl/vDOIZDrZ0ioBq',0.00,1),
+(26,8,24,'elvis erik','14182190','$2a$10$0avJQEAzFrEsrg7V7p/2KOg9Z6mcY25JzxFRpwZbu.lAhE2jhLmxm',0.00,1),
+(27,8,25,'elvis erik','14182191','$2a$10$Q1gm2K9vOe6PdWInyxGnA.H1yrfCFpSiydwQsOlNooos7qoEyBeLi',0.00,1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -1507,6 +1618,14 @@ SET character_set_client = utf8mb4;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Dumping events for database 'creditos_db'
+--
+
+--
+-- Dumping routines for database 'creditos_db'
+--
+
+--
 -- Final view structure for view `v_cuotas_vencidas`
 --
 
@@ -1569,4 +1688,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-10-19 11:11:17
+-- Dump completed on 2026-10-20  9:24:18
